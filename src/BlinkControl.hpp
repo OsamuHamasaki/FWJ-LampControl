@@ -10,10 +10,9 @@ class BlinkControl
 private:
     static const int stateOff = 0;
     static const int stateOn = 1;
-    static const int stateBlinkOn = 2;
-    static const int stateBlinkOff = 3;
+    static const int stateBlink = 2;
 
-    static const int initialCount = 10;
+    static const int initialCount = 20;
 
     int state;
     int count;
