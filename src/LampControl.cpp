@@ -7,6 +7,8 @@
 #include <cstring>
 #include "IO.hpp"
 
+static int tickInterval_us = 10000;
+
 bool initialize()
 {
     return IO_initialize();
@@ -33,7 +35,7 @@ int main()
     for ( ; ;)
     {
         tick();
-        usleep(100000);
+        usleep(tickInterval_us);
     }
 
     finalize();
