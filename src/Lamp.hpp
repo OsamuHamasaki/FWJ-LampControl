@@ -5,13 +5,23 @@
 #ifndef __LAMP_HPP__
 #define __LAMP_HPP__
 
+#include "BrightnessControl.hpp"
+#include "BlinkControl.hpp"
+
 class Lamp
 {
 private:
-public:
-    Lamp() {}
+    BrightnessControl brightnessControl;
+    BlinkControl blinkControl;
 
-    void dummy();
+public:
+    Lamp() : brightnessControl(), blinkControl() {}
+
+    void notifyPowerSwitchPressed();
+    void notifyBrightnessSwitchPressed();
+    void notifyBlinkSwitchPressed();
+
+    void tick();
 };
 
 #endif

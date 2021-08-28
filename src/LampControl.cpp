@@ -6,6 +6,15 @@
 #include <unistd.h>
 #include <cstring>
 #include "IO.hpp"
+#include "Lamp.hpp"
+#include "PowerSwitch.hpp"
+#include "BrightnessSwitch.hpp"
+#include "BlinkSwitch.hpp"
+
+Lamp lamp;
+PowerSwitch powerSwitch(&lamp);
+BrightnessSwitch brightnessSwitch(&lamp);
+BlinkSwitch blinkSwitch(&lamp);
 
 bool initialize()
 {
@@ -20,6 +29,10 @@ void finalize()
 void tick()
 {
     IO_tick();
+    powerSwitch.tick();
+    brightnessSwitch.tick();
+    blinkSwitch.tick();
+    lamp.tick();
 }
 
 int main()
@@ -33,7 +46,7 @@ int main()
     for ( ; ;)
     {
         tick();
-        usleep(100000);
+        usleep(50000);
     }
 
     finalize();
