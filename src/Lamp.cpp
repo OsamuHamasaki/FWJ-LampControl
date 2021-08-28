@@ -2,10 +2,5 @@
 // Lamp.cpp
 //
 
-#include "Lamp.hpp"
-
-void Lamp::dummy()
-{
-}
-
+void dummy() {}
 
