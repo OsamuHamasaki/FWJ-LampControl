@@ -6,7 +6,7 @@
 #include <sys/types.h>
 #include <arpa/inet.h>
 #include <unistd.h>
-#include <string>
+#include <cstring>
 #include <stdint.h>
 
 #include "IO.hpp"

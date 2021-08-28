@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <unistd.h>
+#include <cstring>
 #include "IO.hpp"
 
 bool initialize()
@@ -32,7 +33,7 @@ int main()
     for ( ; ;)
     {
         tick();
-        usleep(10000);
+        usleep(100000);
     }
 
     finalize();
