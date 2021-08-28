@@ -24,7 +24,7 @@ void BlinkControl::notifyBlinkSwitchPressed()
     if (state == stateOn)
     {
         state = stateBlink;
-        count = initialCount;
+        count = tickCountForBlinkCycle;
     }
     else if (state != stateOff)
     {
@@ -38,14 +38,14 @@ void BlinkControl::tick()
     if (state != stateBlink) return;
 
     count--;
-    if (count == initialCount / 2)
+    if (count == tickCountForBlinkCycle / 2)
     {
         IO_lampOff();
     }
     else if (count == 0)
     {
         IO_lampOn();
-        count = initialCount;
+        count = tickCountForBlinkCycle;
     }
 }
 

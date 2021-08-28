@@ -15,7 +15,7 @@ private:
     BlinkControl blinkControl;
 
 public:
-    Lamp() : brightnessControl(), blinkControl() {}
+    Lamp(int tickCountForBlinkCycle) : brightnessControl(), blinkControl(tickCountForBlinkCycle) {}
 
     void notifyPowerSwitchPressed();
     void notifyBrightnessSwitchPressed();

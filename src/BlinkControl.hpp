@@ -12,13 +12,13 @@ private:
     static const int stateOn = 1;
     static const int stateBlink = 2;
 
-    static const int initialCount = 20;
+    int tickCountForBlinkCycle;
 
     int state;
     int count;
 
 public:
-    BlinkControl() : state(stateOff), count(0) {}
+    BlinkControl(int tickCountForBlinkCycle) : tickCountForBlinkCycle(tickCountForBlinkCycle), state(stateOff), count(0) {}
 
     void notifyPowerSwitchPressed();
     void notifyBlinkSwitchPressed();

@@ -11,7 +11,12 @@
 #include "BrightnessSwitch.hpp"
 #include "BlinkSwitch.hpp"
 
-Lamp lamp;
+static int tickIntervalUs = 50000;
+static int blinkCycleUs = 1000000;
+
+static int tickCountForBlinkCycle = blinkCycleUs / tickIntervalUs;
+
+Lamp lamp(tickCountForBlinkCycle);
 PowerSwitch powerSwitch(&lamp);
 BrightnessSwitch brightnessSwitch(&lamp);
 BlinkSwitch blinkSwitch(&lamp);
@@ -46,7 +51,7 @@ int main()
     for ( ; ;)
     {
         tick();
-        usleep(50000);
+        usleep(tickIntervalUs);
     }
 
     finalize();
