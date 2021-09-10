@@ -5,17 +5,9 @@
 #include "BrightnessControl.hpp"
 #include "IO.hpp"
 
-void BrightnessControl::notifyPowerSwitchPressed()
+void BrightnessControl::start()
 {
-    if (state == stateOff)
-    {
-        state = stateBright;
-        IO_lampBrighten();
-    }
-    else
-    {
-        state = stateOff;
-    }
+    state = stateBright;
 }
 
 void BrightnessControl::notifyBrightnessSwitchPressed()
@@ -25,7 +17,7 @@ void BrightnessControl::notifyBrightnessSwitchPressed()
         state = stateDark;
         IO_lampDarken();
     }
-    else if (state == stateDark)
+    else
     {
         state = stateBright;
         IO_lampBrighten();

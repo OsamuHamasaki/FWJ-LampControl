@@ -5,47 +5,44 @@
 #include "BlinkControl.hpp"
 #include "IO.hpp"
 
-void BlinkControl::notifyPowerSwitchPressed()
+void BlinkControl::StateOn::notifyBlinkSwitchPressed()
 {
-    if (state == stateOff)
+    control->count = control->tickCountForBlinkCycle;
+    control->state = &(control->stateBlink);
+}
+
+void BlinkControl::StateBlink::notifyBlinkSwitchPressed()
+{
+    IO_lampOn();
+    control->state = &(control->stateOn);
+}
+
+void BlinkControl::StateBlink::tick()
+{
+    control->count--;
+    if (control->count == control->tickCountForBlinkCycle / 2)
     {
-        state = stateOn;
-        IO_lampOn();
-    }
-    else
-    {
-        state = stateOff;
         IO_lampOff();
     }
+    else if (control->count == 0)
+    {
+        IO_lampOn();
+        control->count = control->tickCountForBlinkCycle;
+    }
+}
+
+void BlinkControl::start()
+{
+    state = &stateOn;
 }
 
 void BlinkControl::notifyBlinkSwitchPressed()
 {
-    if (state == stateOn)
-    {
-        state = stateBlink;
-        count = tickCountForBlinkCycle;
-    }
-    else if (state != stateOff)
-    {
-        state = stateOn;
-        IO_lampOn();
-    }
+    state->notifyBlinkSwitchPressed();
 }
 
 void BlinkControl::tick()
 {
-    if (state != stateBlink) return;
-
-    count--;
-    if (count == tickCountForBlinkCycle / 2)
-    {
-        IO_lampOff();
-    }
-    else if (count == 0)
-    {
-        IO_lampOn();
-        count = tickCountForBlinkCycle;
-    }
+    state->tick();
 }
 

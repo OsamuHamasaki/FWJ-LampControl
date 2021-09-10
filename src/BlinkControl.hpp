@@ -8,21 +8,51 @@
 class BlinkControl 
 {
 private:
-    static const int stateOff = 0;
-    static const int stateOn = 1;
-    static const int stateBlink = 2;
+    class State
+    {
+    protected:
+        BlinkControl* control;
+    public:
+        State(BlinkControl* control) : control(control) {}
+        virtual ~State() {}
+
+        virtual void notifyBlinkSwitchPressed() {}
+        virtual void tick() {}
+    };
+
+    class StateOn : public State
+    {
+    public:
+        StateOn(BlinkControl* control) : State(control) {}
+        ~StateOn() {}
+
+        void notifyBlinkSwitchPressed();
+    };
+
+    class StateBlink : public State
+    {
+    public:
+        StateBlink(BlinkControl* control) : State(control) {}
+        ~StateBlink() {}
+
+        void notifyBlinkSwitchPressed();
+        virtual void tick();
+    };
+
+    StateOn stateOn;
+    StateBlink stateBlink;
 
     int tickCountForBlinkCycle;
 
-    int state;
+    State* state;
     int count;
 
 public:
-    BlinkControl(int tickCountForBlinkCycle) : tickCountForBlinkCycle(tickCountForBlinkCycle), state(stateOff), count(0) {}
+    BlinkControl(int tickCountForBlinkCycle) 
+        : stateOn(this), stateBlink(this), tickCountForBlinkCycle(tickCountForBlinkCycle), state(&stateOn), count(0) {}
 
-    void notifyPowerSwitchPressed();
+    void start();
     void notifyBlinkSwitchPressed();
-
     void tick();
 };
 
