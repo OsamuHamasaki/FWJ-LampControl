@@ -13,7 +13,7 @@ void BlinkControl::notifyPowerSwitchPressed()
             IO_lampOn();
             state = ON;
             break;
-        case ON:
+        default: 
             IO_lampOff();
             state = OFF;
             break;
